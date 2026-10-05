@@ -15,8 +15,6 @@ interface VideoModalProps {
  * - No image fallbacks or text clutter
  */
 export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
-  if (!video) return null;
-
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -26,20 +24,24 @@ export const VideoModal: React.FC<VideoModalProps> = ({ video, onClose }) => {
 
   // Close on Escape key
   useEffect(() => {
+    if (!video) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  }, [video, onClose]);
 
   // Lock body scroll while modal open
   useEffect(() => {
+    if (!video) return;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, []);
+  }, [video]);
+
+  if (!video) return null;
 
   const togglePlay = () => {
     if (videoRef.current) {

@@ -24,6 +24,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   autoplayOnHover = true,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [userClickedPlay, setUserClickedPlay] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -39,9 +40,11 @@ export const VideoCard: React.FC<VideoCardProps> = ({
       if (isPlaying) {
         videoRef.current.pause();
         setIsPlaying(false);
+        setUserClickedPlay(false);
       } else {
         videoRef.current.play().catch(() => {});
         setIsPlaying(true);
+        setUserClickedPlay(true);
       }
     }
   };
@@ -86,7 +89,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    if (autoplayOnHover && isPlaying && videoRef.current) {
+    if (autoplayOnHover && isPlaying && !userClickedPlay && videoRef.current) {
       videoRef.current.pause();
       setIsPlaying(false);
     }
@@ -117,7 +120,8 @@ export const VideoCard: React.FC<VideoCardProps> = ({
         onTimeUpdate={handleTimeUpdate}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover object-center"
+        style={{ objectFit: "cover", objectPosition: "center" }}
       />
 
       {/* Subtle scanline texture overlay */}
@@ -138,7 +142,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
       {/* Center Play Button Overlay */}
       <div
         className={`absolute inset-0 bg-black/25 flex items-center justify-center transition-opacity duration-150 ${
-          isPlaying && !isHovered ? "opacity-0" : "opacity-100"
+          isPlaying && !isHovered ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
         <button

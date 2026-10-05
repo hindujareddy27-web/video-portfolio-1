@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { EMAIL_PLACEHOLDER, INSTAGRAM_PLACEHOLDER, LINKEDIN_PLACEHOLDER } from "../data/portfolioData";
-import { Mail, Instagram, Linkedin, Copy, Check, ArrowUpRight } from "lucide-react";
+import { EMAIL_ADDRESS, LINKEDIN_URL, LINKEDIN_DISPLAY } from "../data/portfolioData";
+import { Mail, Linkedin, Copy, Check, ArrowUpRight } from "lucide-react";
 
 export const Contact: React.FC = () => {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
@@ -14,19 +14,21 @@ export const Contact: React.FC = () => {
   const contacts = [
     {
       label: "EMAIL",
-      placeholder: EMAIL_PLACEHOLDER,
+      displayText: EMAIL_ADDRESS,
+      copyValue: EMAIL_ADDRESS,
+      href: `mailto:${EMAIL_ADDRESS}`,
+      target: undefined,
+      rel: undefined,
       icon: Mail,
       note: "For event recap bookings, reel edits & creative collaborations"
     },
     {
-      label: "INSTAGRAM",
-      placeholder: INSTAGRAM_PLACEHOLDER,
-      icon: Instagram,
-      note: "DMs for edits & creative experiments"
-    },
-    {
       label: "LINKEDIN",
-      placeholder: LINKEDIN_PLACEHOLDER,
+      displayText: LINKEDIN_DISPLAY,
+      copyValue: LINKEDIN_URL,
+      href: LINKEDIN_URL,
+      target: "_blank",
+      rel: "noopener noreferrer",
       icon: Linkedin,
       note: "Professional networking & student background"
     }
@@ -63,8 +65,8 @@ export const Contact: React.FC = () => {
           </span>
         </div>
 
-        {/* Contact Details & Placeholders */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Contact Details Cards */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           {contacts.map((item) => {
             const Icon = item.icon;
             const isCopied = copiedItem === item.label;
@@ -81,9 +83,9 @@ export const Contact: React.FC = () => {
                       <span>{item.label}</span>
                     </span>
                     <button
-                      onClick={() => handleCopy(item.placeholder, item.label)}
-                      className="hover:text-zinc-200 flex items-center gap-1 text-[11px] transition-colors"
-                      title="Copy placeholder"
+                      onClick={() => handleCopy(item.copyValue, item.label)}
+                      className="hover:text-zinc-200 flex items-center gap-1 text-[11px] transition-colors cursor-pointer"
+                      title={`Copy ${item.label}`}
                     >
                       {isCopied ? (
                         <>
@@ -99,10 +101,15 @@ export const Contact: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Clean unboxed placeholder text */}
-                  <div className="mt-4 font-mono text-sm sm:text-base font-bold text-zinc-200 group-hover:text-white break-all">
-                    {item.placeholder}
-                  </div>
+                  {/* Clean unboxed text with link */}
+                  <a
+                    href={item.href}
+                    target={item.target}
+                    rel={item.rel}
+                    className="mt-4 block font-mono text-sm sm:text-base font-bold text-zinc-200 hover:text-white break-all transition-colors"
+                  >
+                    {item.displayText}
+                  </a>
 
                   <p className="mt-2 text-xs text-zinc-400 font-sans">
                     {item.note}
@@ -110,8 +117,25 @@ export const Contact: React.FC = () => {
                 </div>
 
                 <div className="mt-6 pt-3 border-t border-zinc-900 font-mono text-[11px] text-zinc-500 flex items-center justify-between">
-                  <span>TAP TO COPY</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <button
+                    onClick={() => handleCopy(item.copyValue, item.label)}
+                    className="hover:text-zinc-300 transition-colors cursor-pointer text-left uppercase"
+                  >
+                    {isCopied ? (
+                      <span className="text-emerald-400 font-semibold">COPIED</span>
+                    ) : (
+                      "TAP TO COPY"
+                    )}
+                  </button>
+                  <a
+                    href={item.href}
+                    target={item.target}
+                    rel={item.rel}
+                    className="hover:text-white transition-colors p-1"
+                    aria-label={`Open ${item.label}`}
+                  >
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
                 </div>
               </div>
             );

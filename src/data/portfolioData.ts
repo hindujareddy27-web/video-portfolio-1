@@ -1,3 +1,9 @@
+import eventVideo1 from "../assets/images/event_01_horizontal.mp4";
+import video1 from "../assets/images/personal_edit_horizontal1.mp4";
+import video2 from "../assets/images/personal_edit_horizontal2.mp4";
+import video3 from "../assets/images/personal_edit_horizontal3.mp4";
+import video4 from "../assets/images/personal_edit_vertical.mp4";
+
 /**
  * Portfolio Data Configuration for Hinduja Reddy — Video Editor
  * 
@@ -18,13 +24,13 @@ export interface VideoItem {
 // ==============================================================
 // 1. EVENT EDITS — 4 VIDEOS
 // 2 horizontal, 2 vertical
-// event_01_horizontal.mp4 is the first/large event video (featured: true)
+// eventVideo1 is the first/large event video (featured: true)
 // ==============================================================
 export const eventVideos: VideoItem[] = [
   {
     id: "event-01",
-    src: "/videos/event_01_horizontal.mp4",
-    videoSrc: "/videos/event_01_horizontal.mp4",
+    src: eventVideo1,
+    videoSrc: eventVideo1,
     orientation: "horizontal",
     featured: true,
   },
@@ -54,31 +60,30 @@ export const eventVideos: VideoItem[] = [
 // ==============================================================
 // 2. PERSONAL PROJECTS — 4 VIDEOS
 // 3 horizontal, 1 vertical
-// Exact filename for 4th video: personal_04_vertical.mp4.mp4
 // ==============================================================
 export const personalVideos: VideoItem[] = [
   {
     id: "personal-01",
-    src: "/videos/personal_01_horizontal.mp4",
-    videoSrc: "/videos/personal_01_horizontal.mp4",
+    src: video1,
+    videoSrc: video1,
     orientation: "horizontal",
   },
   {
     id: "personal-02",
-    src: "/videos/personal_02_horizontal.mp4",
-    videoSrc: "/videos/personal_02_horizontal.mp4",
+    src: video2,
+    videoSrc: video2,
     orientation: "horizontal",
   },
   {
     id: "personal-03",
-    src: "/videos/personal_03_horizontal.mp4",
-    videoSrc: "/videos/personal_03_horizontal.mp4",
+    src: video3,
+    videoSrc: video3,
     orientation: "horizontal",
   },
   {
     id: "personal-04",
-    src: "/videos/personal_04_vertical.mp4.mp4",
-    videoSrc: "/videos/personal_04_vertical.mp4.mp4",
+    src: video4,
+    videoSrc: video4,
     orientation: "vertical",
   },
 ];
@@ -153,8 +158,8 @@ export const TOOLS_DATA: ToolItem[] = [
 ];
 
 // ==============================================================
-// 5. CONTACT PLACEHOLDERS
+// 5. CONTACT DETAILS
 // ==============================================================
-export const EMAIL_PLACEHOLDER = "EMAIL_PLACEHOLDER";
-export const INSTAGRAM_PLACEHOLDER = "INSTAGRAM_PLACEHOLDER";
-export const LINKEDIN_PLACEHOLDER = "LINKEDIN_PLACEHOLDER";
+export const EMAIL_ADDRESS = "hindujareddy27@gmail.com";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/hinduja-reddy-b923b7306";
+export const LINKEDIN_DISPLAY = "linkedin.com/in/hinduja-reddy-b923b7306";
